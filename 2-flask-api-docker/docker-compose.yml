@@ -1,0 +1,44 @@
+version: "3.9"
+
+# Local development stack — Flask API + PostgreSQL
+# Usage: docker compose up --build
+# Author: Gaurav Kumar
+
+services:
+  api:
+    build:
+      context: .
+      target: production
+    ports:
+      - "8000:8000"
+    environment:
+      FLASK_ENV: development
+      DATABASE_URL: postgresql://gaurav:password@postgres:5432/api_dev
+      SECRET_KEY: dev-secret-not-for-prod
+      JWT_SECRET_KEY: jwt-dev-secret-not-for-prod
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      # Hot reload in dev (mount source code)
+      - .:/app
+    command: flask run --host=0.0.0.0 --port=8000 --debug
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: gaurav
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: api_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gaurav -d api_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
