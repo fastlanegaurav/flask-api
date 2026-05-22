@@ -23,7 +23,6 @@ The project is designed to showcase practical DevOps engineering concepts used i
 
 # 📐 Architecture Diagram
 
-```text id="pnlc3r"
                 ┌─────────────────┐
                 │    Developer    │
                 └────────┬────────┘
@@ -100,7 +99,7 @@ The project is designed to showcase practical DevOps engineering concepts used i
 
 # 📂 Project Structure
 
-```bash id="y7e7v3"
+
 .
 ├── .github/workflows/
 │   └── jekyll-gh-pages.yml
