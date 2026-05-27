@@ -19,7 +19,7 @@ This repository demonstrates:
 
 The project is designed to showcase practical DevOps engineering concepts used in modern backend infrastructure environments.
 
---
+---
 
 # 📐 Architecture Diagram
 
